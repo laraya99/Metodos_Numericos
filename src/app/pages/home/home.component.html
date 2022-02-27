@@ -1,0 +1,113 @@
+1<div class="container-fluid mt-5 pt-4">
+    <div class="row">
+        <div class="col-md-10">
+            <p class="fs-1">¿Qué es el método de bisección?</p>
+            <p class="mt-2 fs-5">
+                El método de bisección, es una forma de encontrar raices de una ecuación, el cual consisten en tomar un intervalo donde se encuentre una raiz, e irlo dividiendo a la mitad, hasta aproximarse a la raíz tanto como desee.
+            </p>
+        </div>
+
+        <div class="col-md-10"> 
+            <p class="fs-1">Correcto uso del programa</p>
+            <p class="mt-2 fs-5">
+                El programa esta diseñado para resolver ecuaciones complejas, no obstante, es importante tomar en cuenta la forma correcta de escribir dichas ecuaciones, la aplicación es capaz de resolver exponentes ('^'), logaritmos ('ln'), e incluso, ecuaciones trigonométricas (sin, cos, tan).
+            </p>
+            <p>
+                Por tratarse del método de bisección, las ecuaciones por resolver con esta aplicación solamente pueden contar con una incógnita ('x').
+            </p>
+            <p>
+                Antes de hacer click en el botón "Calcular", por favor asegúrese de haber indicado todos los parámetros requeridos.
+            </p>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <h5 class="card-header bg-info text-white">Método de bisección</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <mat-dialog-content>
+                                <div style="width: 90%;">
+                                    <form [formGroup]="parameters.baseForm">
+                                        <div class="form-group">
+                                            <label for="funcion">Función</label>
+                                            <input type="text" class="form-control" id="funcion" placeholder="Ingrese la función" formControlName="funcion">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limiteInferior">Límite Inferior</label>
+                                            <input type="number" class="form-control" id="limiteInferior" formControlName="limiteInferior">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limiteSuperior">Límite Superior</label>
+                                            <input type="number" class="form-control" id="limiteSuperior" formControlName="limiteSuperior">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="error">Porcentaje de Error</label>
+                                            <input type="number" class="form-control" id="error" formControlName="error" placeholder="Ingrese el error máximo deseado">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="decimales">Decimales:   {{decimales}}</label>
+                                            <mat-slider class="slider"
+                                            tickInterval="15"
+                                            step="1"
+                                            min="0"
+                                            max="15"
+                                            [(ngModel)]="decimales"
+                                            [ngModelOptions]="{standalone: true}"
+                                            aria-label="unit(s)"></mat-slider>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-info text-white" type="button" (click)="calcular()">Calcular</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="result">Raíz aproximada: {{raiz_aproximada}}</label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </mat-dialog-content>
+                        </div>
+                        <div class="col-md-7">
+                            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                                <ng-container matColumnDef="intervalo">
+                                  <th mat-header-cell *matHeaderCellDef> Iteración </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.intervalo}} </td>
+                                </ng-container>
+                              
+                             
+                                <ng-container matColumnDef="a">
+                                  <th mat-header-cell *matHeaderCellDef> a </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.a}} </td>
+                                </ng-container>
+                              
+                                <ng-container matColumnDef="b">
+                                    <th mat-header-cell *matHeaderCellDef> b </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.b}} </td>
+                                  </ng-container>
+
+                                <ng-container matColumnDef="x1">
+                                    <th mat-header-cell *matHeaderCellDef> x1 </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.x1}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="error">
+                                    <th mat-header-cell *matHeaderCellDef> E% </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.error}} </td>
+                                </ng-container>
+                              
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            
+                            <mat-paginator [length]="5"
+                                          [pageSize]="8"
+                                          [pageSizeOptions]="[1, 2, 3, 5, 6, 7, 8]"
+                                          aria-label="Select page">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
